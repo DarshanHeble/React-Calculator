@@ -17,11 +17,13 @@ body {
   grid-template-rows: minmax(7rem, auto) repeat(5, 6rem);
 }
 .container > button {
+  /* border-radius: 10%; */
+  color: black;
   display: grid;
   place-content: center;
   /* background-color: rgb(173, 255, 252); */
   background-color: rgb(144, 240, 242);
-  border: 1px solid white;
+  border: 1px solid black;
   font-size: 2rem;
 
   &:hover,
