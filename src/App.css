@@ -17,7 +17,7 @@ body {
   grid-template-rows: minmax(7rem, auto) repeat(5, 6rem);
 }
 .container > button {
-  /* border-radius: 10%; */
+  border-radius: 50%;
   color: black;
   display: grid;
   place-content: center;
@@ -29,10 +29,11 @@ body {
   &:hover,
   &:focus {
     background-color: rgb(65, 190, 186);
+    border-radius: 40%;
   }
 }
 .span-two {
-  grid-column: span 2;
+  /* grid-column: span 2; */
 }
 .output {
   grid-column: 1 / -1;

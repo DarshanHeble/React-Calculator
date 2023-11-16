@@ -14,8 +14,17 @@ export const Actions = {
 function reducer(state, { type, payload }) {
   switch (type) {
     case Actions.ADD_DIGIT:
-      if (payload.digit == "0" && state.currentOperand == "0") return state;
-      if (payload.digit == "." && state.currentOperand.includes(".")) {
+      if (state.overwrite) {
+        return {
+          ...state,
+          currentOperand: payload.digit,
+          overwrite: false,
+        };
+      }
+      if (payload.digit === "0" && state.currentOperand === "0") return state;
+      if (payload.digit === "00" && state.currentOperand === "00") return state;
+      if (state.currentOperand === "00") return state;
+      if (payload.digit === "." && state.currentOperand.includes(".")) {
         return state;
       }
       return {
@@ -50,6 +59,25 @@ function reducer(state, { type, payload }) {
       };
     case Actions.CLEAR:
       return {};
+    case Actions.DELETE_DIGIT:
+      if (state.overwrite) {
+        return {
+          ...state,
+          overwrite: false,
+          currentOperand: null,
+        };
+      }
+      if (state.currentOperand == null) return state;
+      if (state.currentOperand.length == 1) {
+        return {
+          ...state,
+          currentOperand: null,
+        };
+      }
+      return {
+        ...state,
+        currentOperand: state.currentOperand.slice(0, -1),
+      };
     case Actions.EVALUATE:
       if (
         state.operation == null ||
@@ -61,6 +89,7 @@ function reducer(state, { type, payload }) {
 
       return {
         ...state,
+        overwrite: true,
         previousOperand: null,
         operation: null,
         currentOperand: evaluate(state),
@@ -112,7 +141,10 @@ function App() {
         >
           AC
         </button>
-        <button>Del</button>
+        <button onClick={() => dispatch({ type: Actions.DELETE_DIGIT })}>
+          Del
+        </button>
+        <Digit_Button digit="÷" dispatch={dispatch} />
         <Digit_Button digit="÷" dispatch={dispatch} />
 
         <Digit_Button digit="1" dispatch={dispatch} />
@@ -129,6 +161,7 @@ function App() {
         <Operation_Button operation="-" dispatch={dispatch} />
         <Digit_Button digit="." dispatch={dispatch} />
         <Digit_Button digit="0" dispatch={dispatch} />
+        <Digit_Button digit="00" dispatch={dispatch} />
         <button
           className="span-two"
           onClick={() => dispatch({ type: Actions.EVALUATE })}
