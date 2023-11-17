@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useReducer } from "react";
 import Digit_Button from "./assets/Digit_Button";
 import Operation_Button from "./assets/Operation_Button";
 import "./App.css";
@@ -21,9 +21,11 @@ function reducer(state, { type, payload }) {
           overwrite: false,
         };
       }
-      if (payload.digit === "0" && state.currentOperand === "0") return state;
+      if (payload.digit == "0" && state.currentOperand == "0") {
+        return state;
+      }
       if (payload.digit === "00" && state.currentOperand === "00") return state;
-      if (state.currentOperand === "00") return state;
+      // if (state.currentOperand === "00") return state;
       if (payload.digit === "." && state.currentOperand.includes(".")) {
         return state;
       }
@@ -115,6 +117,9 @@ function evaluate({ currentOperand, previousOperand, operation }) {
     case "÷":
       computation = prev / curr;
       break;
+    case "%":
+      computation = prev % curr;
+      break;
   }
   return computation.toString();
 }
@@ -144,8 +149,8 @@ function App() {
         <button onClick={() => dispatch({ type: Actions.DELETE_DIGIT })}>
           Del
         </button>
-        <Digit_Button digit="÷" dispatch={dispatch} />
-        <Digit_Button digit="÷" dispatch={dispatch} />
+        <Operation_Button operation="%" dispatch={dispatch} />
+        <Operation_Button operation="÷" dispatch={dispatch} />
 
         <Digit_Button digit="1" dispatch={dispatch} />
         <Digit_Button digit="2" dispatch={dispatch} />

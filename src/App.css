@@ -10,6 +10,8 @@ body {
   place-content: center;
 }
 .container {
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 2rem;
   display: grid;
   /* justify-content: center; */
   margin-top: 2rem;
@@ -32,26 +34,28 @@ body {
     border-radius: 40%;
   }
 }
-.span-two {
+/* .span-two {
   grid-column: span 2;
-}
+} */
 .output {
+  height: 10rem;
   grid-column: 1 / -1;
-  border-radius: 0.5rem;
-  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 2rem;
+  background-color: rgb(29, 28, 28);
   color: white;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-around;
-  padding: 0.75rem;
+  padding: 0.85rem 0.75rem;
   word-wrap: break-word;
   word-break: break-all;
+  overflow-y: auto;
 
   .previous_operand {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
   .current_operand {
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
 }
